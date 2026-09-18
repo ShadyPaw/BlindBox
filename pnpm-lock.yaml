@@ -11,6 +11,9 @@ importers:
       '@box/logger':
         specifier: workspace:*
         version: link:packages/logger
+      '@box/money':
+        specifier: workspace:*
+        version: link:packages/money
       '@box/types':
         specifier: workspace:*
         version: link:packages/types
@@ -99,6 +102,9 @@ importers:
       '@box/logger':
         specifier: workspace:*
         version: link:../../packages/logger
+      '@box/money':
+        specifier: workspace:*
+        version: link:../../packages/money
       '@box/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -120,18 +126,28 @@ importers:
       ioredis:
         specifier: ^5.8.0
         version: 5.11.1
+      nodemailer:
+        specifier: 10.0.10
+        version: 10.0.10
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
       rxjs:
         specifier: ^7.8.2
         version: 7.8.2
+    devDependencies:
+      '@types/nodemailer':
+        specifier: 8.0.2
+        version: 8.0.2
 
   apps/web:
     dependencies:
       '@box/logger':
         specifier: workspace:*
         version: link:../../packages/logger
+      '@box/money':
+        specifier: workspace:*
+        version: link:../../packages/money
       '@box/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -193,6 +209,9 @@ importers:
 
   packages/database:
     dependencies:
+      '@box/money':
+        specifier: workspace:*
+        version: link:../money
       '@prisma/adapter-pg':
         specifier: 7.10.0
         version: 7.10.0
@@ -213,6 +232,8 @@ importers:
         specifier: ^10.3.1
         version: 10.3.1
 
+  packages/money: {}
+
   packages/types: {}
 
   packages/ui:
@@ -227,6 +248,9 @@ importers:
 
   packages/validation:
     dependencies:
+      '@box/money':
+        specifier: workspace:*
+        version: link:../money
       zod:
         specifier: ^4.6.5
         version: 4.6.5
@@ -1082,6 +1106,9 @@ packages:
 
   '@types/node@22.20.3':
     resolution: {integrity: sha512-DZmzkmwHzXrLPAXPyKNDzlIwMMUZCVacoD25ywdy5YTKGbOx/2ld+Q38Im2zJ0vBuZP5Prd3VZutKZyXwkOS8A==}
+
+  '@types/nodemailer@8.0.2':
+    resolution: {integrity: sha512-c7M5ox8p0nEOfbJ2E9Qcmt8/QCu/VzsiAhzBiZbvky2PhKZDHpKB3sQHBM5MEZNkCfBOaS6S9//AGPRTNB7IaA==}
 
   '@types/pg@8.23.1':
     resolution: {integrity: sha512-fKVHpikPdg4GKks3JuLEhvwSyvwzF23hnabPy6DD8ljVbC7+6J5dQzdv4arV6jqq57djnMgs1HKBxX4P8aBI3A==}
@@ -1945,6 +1972,10 @@ packages:
   node-gyp-build-optional-packages@5.2.2:
     resolution: {integrity: sha512-s+w+rBWnpTMwSFbaE0UXsRlg7hU4FjekKU4eyAih5T8nJuNZT1nNsskXpxmeqSK9UzkBl6UgRlnKc8hz8IEqOw==}
     hasBin: true
+
+  nodemailer@10.0.10:
+    resolution: {integrity: sha512-He9XskOFms62SyAKkLu8CcGcYHAo+BSHSsORI8s4PJH8qZgZY4L4lDfvyN0twvmbpyG+eGrxpyBlskj9d9rJ8A==}
+    engines: {node: '>=20.0.0'}
 
   obug@2.2.1:
     resolution: {integrity: sha512-XrsrhT5sybtKI6wakr2SPOlGZWWYbUXZ7a0jT8/QOeAPau+1X/bSegNe5YR75oJmEZQbKningirmGOEJCIk61Q==}
@@ -3211,6 +3242,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/nodemailer@8.0.2':
+    dependencies:
+      '@types/node': 22.20.3
+
   '@types/pg@8.23.1':
     dependencies:
       '@types/node': 22.20.3
@@ -4163,6 +4198,8 @@ snapshots:
     dependencies:
       detect-libc: 2.1.2
     optional: true
+
+  nodemailer@10.0.10: {}
 
   obug@2.2.1: {}
 

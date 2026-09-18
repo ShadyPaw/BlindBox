@@ -127,6 +127,50 @@ small {
 .page-subtitle {
   color: #858696;
 }
+.auth-mode-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  color: #b998ff;
+}
+.account-page {
+  padding-top: 64px;
+  padding-bottom: 100px;
+  min-height: 60vh;
+}
+.account-page h1 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.account-details {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 20px;
+  padding: 28px;
+  background: var(--panel);
+  border-radius: 16px;
+  margin: 28px 0;
+}
+.account-details dt {
+  color: #999aaa;
+}
+.account-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.reset-card {
+  max-width: 480px;
+  margin: auto;
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 28px;
+}
+.account-link {
+  padding: 10px 16px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
 .page-subtitle {
   margin-top: 8px;
   margin-bottom: 40px;

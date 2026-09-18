@@ -1,28 +1,30 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import {
-  boxes,
-  coinBoxes,
-  boxPrice,
-  money,
-  boxPrizes,
-  type Box,
-} from '../data/catalog';
+import { boxPrice } from '../data/catalog';
+import { formatMoney, parseMinor } from '@box/money';
+import type { CatalogDetail, CatalogBoxItem } from '@box/types';
 import { Icon } from './icon';
 import { BoxCard } from './box-card';
 import { LiveDrops, SectionTitle } from './home';
 import { useSite } from './site-shell';
-export function DetailView({ box }: { box: Box }) {
+export function DetailView({
+  box,
+  items: prizes,
+  relatedBoxes,
+}: CatalogDetail) {
   const [quantity, setQuantity] = useState(1);
   const [fast, setFast] = useState(false);
   const [sound, setSound] = useState(true);
   const [infinite, setInfinite] = useState(false);
   const { login, info } = useSite();
-  const prizes = boxPrizes(box.slug);
-  const coins = box.currency === 'coins';
-  const price = (value: number) =>
-    coins ? boxPrice({ ...box, price: value }) : money(value);
+  const coins = box.mode === 'COIN';
+  const price = (item: CatalogBoxItem) =>
+    formatMoney(parseMinor(item.displayValueMinor), item.displayValueUnit);
+  const displayProbability = (item: CatalogBoxItem) =>
+    item.displayProbabilityPercent === null
+      ? '展示概率未提供'
+      : `${item.displayProbabilityPercent}%`;
   return (
     <div className="container detail-page">
       <div className="detail-toolbar">
@@ -63,12 +65,12 @@ export function DetailView({ box }: { box: Box }) {
       <div className="opening-stage">
         <span className="stage-pointer top">▼</span>
         <div className="opening-track">
-          {(prizes
+          {(prizes.length
             ? prizes.slice(0, 5)
-            : [{ name: box.name, image: box.image }]
+            : [{ id: box.id, name: box.name, image: box.image }]
           ).map((prize, i) => (
             <div
-              key={prize.name}
+              key={prize.id}
               className={`opening-item rarity-${i < 3 ? 'red' : 'gold'}`}
             >
               <img src={prize.image} alt={prize.name} />
@@ -120,37 +122,28 @@ export function DetailView({ box }: { box: Box }) {
           </div>
           <span>⌄</span>
         </summary>
-        <p>
-          {box.slug === 'cozy-christmas'
-            ? 'Discover the cozy side of the season with cheerful Christmas style, playful decorations, and charming little holiday moments. Every reveal adds a fresh spark of color and personality to the experience, making each opening feel warm, festive, and fun. A lighthearted way to explore the spirit of the holidays.'
-            : box.slug === 'everyday-sync'
-              ? 'Find a fresh connection between tech and everyday life. Each reveal brings a digital item inspired by mobile creativity, personal audio, wearables, home entertainment, or useful little extras. Explore Apple-related themes and practical discoveries that can add a new spark to your setup and daily routine. Digital items only; no physical devices, accessories, or shipping are included. Specific contents and usage terms are shown on the product and checkout pages.'
-              : box.slug === 'one-piece-voyage'
-                ? 'Set sail through One Piece characters and card art. Each reveal brings a fresh digital collectible discovery to your fandom collection. Digital items only; no physical cards or shipping. Contents and usage terms appear before payment.'
-                : box.slug === 'next-gen-discovery'
-                  ? 'Explore the energy of next-gen tech, from mobile innovation to gaming and setup upgrades. Each box brings a fresh way to refresh your digital lifestyle, with practical finds and exciting discoveries made for everyday use.'
-                  : '探索 ' +
-                    box.name +
-                    '，發現心儀好物。這款盲盒的完整物品清單將在資料接入後提供。'}
-        </p>
+        <p>{box.description ?? '這款盲盒的完整說明尚未接入。'}</p>
       </details>
       <SectionTitle title="盲盒內容" />
-      {prizes ? (
+      {box.completenessStatus === 'INCOMPLETE' && (
+        <p className="notice">參考資料尚未補齊，以下僅展示已接入的內容。</p>
+      )}
+      {prizes.length > 0 ? (
         <div className="prize-grid">
           {prizes.map((prize, i) => (
             <button
               className={`prize-card rarity-${i < 3 ? 'red' : i < 8 ? 'gold' : 'blue'}`}
-              key={prize.name}
+              key={prize.id}
               onClick={() =>
                 info(
                   prize.name,
-                  `物品價值 ${price(prize.price)} · 公開概率 ${prize.probability}%。此為參考頁面展示資料，前台預覽不產生真實掉落。`,
+                  `物品價值 ${price(prize)} · 公開概率 ${displayProbability(prize)}。此為參考頁面展示資料，前台預覽不產生真實掉落。`,
                 )
               }
             >
-              <span className="probability">{prize.probability}%</span>
+              <span className="probability">{displayProbability(prize)}</span>
               <img src={prize.image} alt={prize.name} />
-              <strong>{price(prize.price)}</strong>
+              <strong>{price(prize)}</strong>
               <p>{prize.name}</p>
             </button>
           ))}
@@ -159,19 +152,13 @@ export function DetailView({ box }: { box: Box }) {
         <div className="empty-state compact">
           <Icon name="box" size={32} />
           <p>物品清單尚未接入</p>
-          <Link href="/boxes/everyday-sync">
-            查看完整詳情頁示例：Everyday Sync ›
-          </Link>
         </div>
       )}
       <SectionTitle title="相關盲盒" />
       <div className="box-grid">
-        {(coins ? coinBoxes : boxes)
-          .filter((item) => item.slug !== box.slug)
-          .slice(0, 6)
-          .map((item) => (
-            <BoxCard key={item.slug} box={item} />
-          ))}
+        {relatedBoxes.map((item) => (
+          <BoxCard key={item.slug} box={item} />
+        ))}
       </div>
     </div>
   );

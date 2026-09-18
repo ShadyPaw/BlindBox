@@ -1,7 +1,14 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { art, boxes, boxHref, extraArt, money } from '../data/catalog';
+import {
+  art,
+  boxHref,
+  boxPrice,
+  extraArt,
+  money,
+  type Box,
+} from '../data/catalog';
 import { BoxCard } from './box-card';
 import { Icon } from './icon';
 import { useSite } from './site-shell';
@@ -41,8 +48,18 @@ export function LiveDrops() {
             <div>
               <b>
                 {money(
-                  [0.1, 10, 0.85, 2.5, 0.22, 0.15, 1.25, 0.2, 0.5, 4.2][i] ??
-                    0.2,
+                  [
+                    '0.1',
+                    '10',
+                    '0.85',
+                    '2.5',
+                    '0.22',
+                    '0.15',
+                    '1.25',
+                    '0.2',
+                    '0.5',
+                    '4.2',
+                  ][i] ?? '0.2',
                 )}
               </b>
               <small>{['U***A', 'M***E', 'K***4', 'W***n'][i % 4]}</small>
@@ -82,16 +99,16 @@ export function Rewards({ all = false }: { all?: boolean }) {
   );
 }
 const players = [
-  { name: 'U***P', amount: 456.45 },
-  { name: 'E***H', amount: 322.5 },
-  { name: 'H***4', amount: 255.39 },
-  { name: 'T***M', amount: 229.27 },
-  { name: 'U***7', amount: 202.37 },
-  { name: 'Y***M', amount: 166.1 },
-  { name: 'U***M', amount: 146.58 },
-  { name: 'H***G', amount: 121.03 },
-  { name: 'U***R', amount: 77.79 },
-  { name: 'U***W', amount: 76.68 },
+  { name: 'U***P', amount: '456.45' },
+  { name: 'E***H', amount: '322.5' },
+  { name: 'H***4', amount: '255.39' },
+  { name: 'T***M', amount: '229.27' },
+  { name: 'U***7', amount: '202.37' },
+  { name: 'Y***M', amount: '166.1' },
+  { name: 'U***M', amount: '146.58' },
+  { name: 'H***G', amount: '121.03' },
+  { name: 'U***R', amount: '77.79' },
+  { name: 'U***W', amount: '76.68' },
 ];
 export function Leaderboard({ full = false }: { full?: boolean }) {
   return (
@@ -149,28 +166,23 @@ export function Leaderboard({ full = false }: { full?: boolean }) {
     </div>
   );
 }
-export function Home() {
+export function Home({ boxes }: { boxes: Box[] }) {
   const [active, setActive] = useState(0);
   const [banner, setBanner] = useState(0);
   const [paused, setPaused] = useState(false);
   const { info } = useSite();
-  const featured = [
-    boxes[1]!,
-    boxes[6]!,
-    boxes[7]!,
-    boxes[3]!,
-    boxes[0]!,
-    boxes[4]!,
-  ];
-  const current = featured[active]!;
+  const featured = [1, 6, 7, 3, 0, 4]
+    .map((i) => boxes[i])
+    .filter((box): box is Box => !!box);
+  const current = featured[active % featured.length];
   useEffect(() => {
-    if (paused) return;
+    if (paused || !featured.length) return;
     const timer = setInterval(
-      () => setActive((value) => (value + 1) % 6),
+      () => setActive((value) => (value + 1) % featured.length),
       6000,
     );
     return () => clearInterval(timer);
-  }, [paused]);
+  }, [paused, featured.length]);
   useEffect(() => {
     const timer = setInterval(
       () => setBanner((value) => (value + 1) % 4),
@@ -182,55 +194,71 @@ export function Home() {
     <div className="container home">
       <h1 className="sr-only">TURBOX 神秘盲盒</h1>
       <LiveDrops />
-      <section
-        className="hero-carousel"
-        aria-label="精選盲盒"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        <div className="hero-stage">
-          <button
-            className="hero-side left"
-            aria-label="上一個盲盒"
-            onClick={() => setActive((active + 5) % 6)}
-          >
-            <img
-              src={featured[(active + 5) % 6]!.image}
-              alt={featured[(active + 5) % 6]!.name}
-            />
-          </button>
-          <Link
-            href={boxHref(current)}
-            className="hero-main"
-            key={current.slug}
-          >
-            <img
-              className="hero-badge"
-              src="/reference/6108b9e62faecde4.png"
-              alt="New"
-            />
-            <img className="hero-box" src={current.image} alt={current.name} />
-          </Link>
-          <button
-            className="hero-side right"
-            aria-label="下一個盲盒"
-            onClick={() => setActive((active + 1) % 6)}
-          >
-            <img
-              src={featured[(active + 1) % 6]!.image}
-              alt={featured[(active + 1) % 6]!.name}
-            />
-          </button>
-        </div>
-        <div className="hero-caption">
-          <h2>{current.name}</h2>
-          <Link href={boxHref(current)} className="primary hero-open">
-            開盒 · {money(current.price)}
-          </Link>
-        </div>
-      </section>
+      {current ? (
+        <section
+          className="hero-carousel"
+          aria-label="精選盲盒"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+        >
+          <div className="hero-stage">
+            <button
+              className="hero-side left"
+              aria-label="上一個盲盒"
+              onClick={() =>
+                setActive((active + featured.length - 1) % featured.length)
+              }
+            >
+              <img
+                src={
+                  featured[(active + featured.length - 1) % featured.length]!
+                    .image
+                }
+                alt={
+                  featured[(active + featured.length - 1) % featured.length]!
+                    .name
+                }
+              />
+            </button>
+            <Link
+              href={boxHref(current)}
+              className="hero-main"
+              key={current.slug}
+            >
+              <img
+                className="hero-badge"
+                src="/reference/6108b9e62faecde4.png"
+                alt="New"
+              />
+              <img
+                className="hero-box"
+                src={current.image}
+                alt={current.name}
+              />
+            </Link>
+            <button
+              className="hero-side right"
+              aria-label="下一個盲盒"
+              onClick={() => setActive((active + 1) % featured.length)}
+            >
+              <img
+                src={featured[(active + 1) % featured.length]!.image}
+                alt={featured[(active + 1) % featured.length]!.name}
+              />
+            </button>
+          </div>
+          <div className="hero-caption">
+            <h2>{current.name}</h2>
+            <Link href={boxHref(current)} className="primary hero-open">
+              開盒 · {boxPrice(current)}
+            </Link>
+          </div>
+        </section>
+      ) : (
+        <p className="empty-state">暫無可展示的盲盒</p>
+      )}
       <section className="promo-banner" aria-label="活動輪播">
         <button
           className="banner-image"
@@ -276,9 +304,12 @@ export function Home() {
       <section>
         <SectionTitle title="熱門盲盒" href="/boxes" label="查看全部盲盒" />
         <div className="box-grid">
-          {[5, 17, 8, 18, 14, 19].map((i) => (
-            <BoxCard key={i} box={boxes[i]!} />
-          ))}
+          {[5, 17, 8, 18, 14, 19]
+            .map((i) => boxes[i])
+            .filter((box): box is Box => !!box)
+            .map((box) => (
+              <BoxCard key={box.id} box={box} />
+            ))}
         </div>
       </section>
       <section>

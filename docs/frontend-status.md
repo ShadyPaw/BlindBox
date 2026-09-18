@@ -14,7 +14,8 @@
 - 詳情數量選擇、音效與极速開箱開關、分享、物品資訊、相關盲盒。
 - 8 個 VIP 福利卡片與未登入提示。
 - 公開排行榜與本期／上期切換、活動資訊彈窗。
-- 驗證登入、密碼登入、顯示密碼、忘記密碼的前端表單狀態與驗證。
+- 郵箱註冊、密碼登入、登出、會話保持、忘記密碼與一次性密碼重置，已接入本專案 API。
+- 受保護的基本帳戶頁；完整原站個人中心仍待還原。
 - 手機自適應與原生 dialog 的焦點限制、Escape 關閉。
 
 ## 尚待還原與驗收
@@ -25,7 +26,7 @@
 - 社群連結已接上原站公開地址；客服仍為預覽入口，沒有發送外部訊息。
 - 仍需逐頁進行桌面與手機的像素對照，不能稱為完整 1:1 複刻。
 
-使用者已確認本輪先處理公開頁面；空投、背包與個人中心等登入後頁面留待後續。帳戶驗證、Google OAuth、開箱、付款、配送、提現與即時排行榜尚未接入後端。表單不發送或持久化帳密，沒有真實抽獎與交易。
+公開頁面之後已開始 Authentication 階段，帳戶資料會送至本專案 API，資料庫保存郵箱與密碼雜湊。郵箱驗證、Google OAuth、空投、背包、完整個人中心、開箱、付款、配送、提現與即時排行榜尚未完成；沒有真實抽獎與交易。詳見 [認證說明](authentication.md)。
 
 ## 開發
 
@@ -41,4 +42,4 @@ $env:PLAYWRIGHT_CHANNEL='chrome'
 pnpm check
 ```
 
-`apps/web/src/data/reference.json` 與 `details.json` 是本地展示資料；`apps/web/public/reference` 是公開頁面素材快照。API、Worker、Prisma 與基礎設施保留 monorepo 初始化時的範圍。
+`apps/web/src/data/reference.json` 與 `details.json` 僅保留為歷史來源快照；目錄运行時從 PostgreSQL 經 API 讀取，金額採整數 minor units，展示概率不作為開獎配置。`apps/web/public/reference` 是公開頁面素材快照。API 和 Prisma 已擴展認證與 Catalog 查詢服務；Worker 仍只有基礎設施任務。

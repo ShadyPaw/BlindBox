@@ -1,21 +1,19 @@
 'use client';
-import { useState } from 'react';
-import { filterBoxes, type Filters } from '../data/catalog';
+import type { CatalogList } from '@box/types';
+import { useCatalog } from '../lib/use-catalog';
 import { BoxCard } from './box-card';
 import { Icon } from './icon';
-const defaults: Filters = {
-  search: '',
-  min: 0,
-  max: 10000,
-  sort: '',
-  category: false,
-  tag: '',
-};
-export function CatalogView() {
-  const [filters, setFilters] = useState(defaults);
-  const result = filterBoxes(filters);
-  const update = (patch: Partial<Filters>) =>
-    setFilters((value) => ({ ...value, ...patch }));
+export function CatalogView({ initial }: { initial: CatalogList }) {
+  const {
+    filters,
+    update,
+    result: data,
+    loading,
+    error,
+    retry,
+    clear,
+  } = useCatalog(initial);
+  const result = data.boxes;
   return (
     <div className="container catalog-page">
       <div className="filters">
@@ -58,9 +56,7 @@ export function CatalogView() {
                 min="0"
                 max="10000"
                 value={filters.min}
-                onChange={(e) =>
-                  update({ min: Math.max(0, Number(e.target.value)) })
-                }
+                onChange={(e) => update({ min: e.target.value })}
               />
             </label>
             <span>－</span>
@@ -72,9 +68,7 @@ export function CatalogView() {
                 min="0"
                 max="10000"
                 value={filters.max}
-                onChange={(e) =>
-                  update({ max: Math.max(0, Number(e.target.value)) })
-                }
+                onChange={(e) => update({ max: e.target.value })}
               />
             </label>
           </div>
@@ -86,7 +80,7 @@ export function CatalogView() {
               max="10000"
               step="1"
               value={filters.max}
-              onChange={(e) => update({ max: Number(e.target.value) })}
+              onChange={(e) => update({ max: e.target.value })}
             />
           </div>
           <select
@@ -109,27 +103,48 @@ export function CatalogView() {
               onChange={(e) => update({ search: e.target.value })}
             />
           </label>
-          <button className="clear-filter" onClick={() => setFilters(defaults)}>
+          <button className="clear-filter" onClick={clear}>
             ⌫ 清除篩選
           </button>
         </div>
       </div>
       <h1>神秘盲盒</h1>
       <p className="page-subtitle">立即開箱，每個盲盒都有機會帶走心儀好物！</p>
-      <div className="box-grid" aria-label="盲盒列表">
-        {result.map((box) => (
-          <BoxCard key={box.slug} box={box} />
-        ))}
+      {loading && <p role="status">載入盲盒中…</p>}
+      {error && (
+        <div role="alert" className="empty-state">
+          <p>{error}</p>
+          <button className="primary" onClick={retry}>
+            重試
+          </button>
+        </div>
+      )}
+      <div className="box-grid" aria-label="盲盒列表" aria-busy={loading}>
+        {!error && result.map((box) => <BoxCard key={box.slug} box={box} />)}
       </div>
-      {!result.length && (
+      {!error && !loading && !result.length && (
         <div className="empty-state">
           <Icon name="search" size={44} />
           <h2>沒有符合條件的盲盒</h2>
           <p>試試其他名稱或調整價格範圍。</p>
-          <button className="primary" onClick={() => setFilters(defaults)}>
+          <button className="primary" onClick={clear}>
             清除篩選
           </button>
         </div>
+      )}
+      {!error && (
+        <nav aria-label="目錄分頁">
+          {filters.page > 1 && (
+            <button onClick={() => update({ page: filters.page - 1 })}>
+              上一頁
+            </button>
+          )}
+          {filters.page * data.pageSize < data.total && (
+            <button onClick={() => update({ page: filters.page + 1 })}>
+              下一頁
+            </button>
+          )}
+        </nav>
       )}
     </div>
   );

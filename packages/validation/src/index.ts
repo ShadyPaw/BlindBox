@@ -1,4 +1,9 @@
 import { z } from 'zod';
+export {
+  catalogQuerySchema,
+  catalogDetailQuerySchema,
+  type CatalogQuery,
+} from './catalog.js';
 
 const port = z.coerce.number().int().min(1).max(65535);
 const connectionUrl = (protocols: string[]) =>
@@ -30,6 +35,23 @@ export const apiEnvSchema = z.object({
   REDIS_URL: redisUrl,
   API_HOST: z.string().min(1).default('0.0.0.0'),
   API_PORT: port.default(3002),
+  WEB_ORIGIN: z.string().url().default('http://localhost:3000'),
+  AUTH_SESSION_DAYS: z.coerce.number().int().min(1).max(30).default(7),
+  AUTH_COOKIE_SECURE: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((v) => v === 'true'),
+  MAIL_TRANSPORT: z.enum(['disabled', 'file', 'smtp']).default('disabled'),
+  MAIL_DIRECTORY: z.string().default('../../.local/mail'),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: port.default(587),
+  SMTP_SECURE: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((v) => v === 'true'),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASSWORD: z.string().optional(),
+  MAIL_FROM: z.string().email().default('no-reply@example.com'),
   CORS_ORIGINS: z
     .string()
     .default('http://localhost:3000,http://localhost:3001')
@@ -45,6 +67,22 @@ export const workerEnvSchema = z.object({
 });
 export type ApiEnv = z.infer<typeof apiEnvSchema>;
 export type WorkerEnv = z.infer<typeof workerEnvSchema>;
+
+export const emailSchema = z.string().trim().toLowerCase().email().max(254);
+export const passwordSchema = z.string().min(15).max(128);
+export const registerSchema = z
+  .object({ email: emailSchema, password: passwordSchema })
+  .strict();
+export const loginSchema = z
+  .object({ email: emailSchema, password: z.string().min(1).max(128) })
+  .strict();
+export const forgotPasswordSchema = z.object({ email: emailSchema }).strict();
+export const resetPasswordSchema = z
+  .object({
+    token: z.string().regex(/^[a-f0-9]{64}$/),
+    password: passwordSchema,
+  })
+  .strict();
 
 export function parseEnv<T>(
   schema: z.ZodType<T>,

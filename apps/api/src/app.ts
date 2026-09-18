@@ -17,8 +17,15 @@ import { createLogger } from '@box/logger';
 import { redisConnection, type ApiEnv } from '@box/validation';
 import type { HealthResponse } from '@box/types';
 import { Redis } from 'ioredis';
+import { AuthController } from './auth/controller.js';
+import { AuthService, redisLimiter, type AuthRuntime } from './auth/service.js';
+import { createMailer } from './auth/mail.js';
+import { CatalogQueryService } from './catalog/service.js';
+import { CatalogController } from './catalog/controller.js';
 
 export interface Dependencies {
+  catalog?: CatalogQueryService;
+  auth?: AuthRuntime;
   database: () => Promise<unknown>;
   redis: () => Promise<unknown>;
   onModuleDestroy: () => Promise<void>;
@@ -35,7 +42,12 @@ export function createDependencies(env: ApiEnv): Dependencies {
   const logger = createLogger('api', env.LOG_LEVEL);
   redis.on('error', () => logger.warn('Redis connection unavailable'));
   return {
-    database: () => database.$queryRaw`SELECT 1`,
+    catalog: new CatalogQueryService(database),
+    auth: {
+      service: new AuthService(database, env, createMailer(env)),
+      limit: redisLimiter(redis),
+    },
+    database: () => database.$queryRaw`SELECT id FROM "User" LIMIT 1`,
     redis: () => redis.ping(),
     onModuleDestroy: async () => {
       redis.disconnect();
@@ -93,8 +105,13 @@ export async function createApp(
       logger.trace({ context: 'Nest' }, String(message)),
   };
   @Module({
-    controllers: [HealthController],
-    providers: [{ provide: 'DEPENDENCIES', useValue: dependencies }],
+    controllers: [HealthController, AuthController, CatalogController],
+    providers: [
+      { provide: 'CATALOG_SERVICE', useValue: dependencies.catalog ?? null },
+      { provide: 'DEPENDENCIES', useValue: dependencies },
+      { provide: 'AUTH_RUNTIME', useValue: dependencies.auth ?? null },
+      { provide: 'API_ENV', useValue: env },
+    ],
   })
   class AppModule {}
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -107,6 +124,20 @@ export async function createApp(
     { logger: nestLogger },
   );
   app.enableCors({ origin: env.CORS_ORIGINS, credentials: true });
+  app
+    .getHttpAdapter()
+    .getInstance()
+    .addHook('onSend', async (request, reply, payload) => {
+      if (
+        request.url.startsWith('/auth/') ||
+        request.url.startsWith('/catalog/')
+      ) {
+        reply.header('Cache-Control', 'no-store');
+        reply.header('Referrer-Policy', 'no-referrer');
+        reply.header('X-Content-Type-Options', 'nosniff');
+      }
+      return payload;
+    });
   app.enableShutdownHooks();
   await app.init();
   return app;

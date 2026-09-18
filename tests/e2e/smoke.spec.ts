@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 for (const [service, port] of [
-  ['web', 3000],
-  ['admin', 3001],
+  ['web', 3100],
+  ['admin', 3101],
 ] as const) {
   test(`${service} serves its production page and health endpoint`, async ({
     page,

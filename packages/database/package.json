@@ -19,12 +19,14 @@
     "generate": "prisma generate",
     "validate": "prisma validate",
     "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy"
+    "migrate:deploy": "prisma migrate deploy",
+    "seed:catalog": "node ../../scripts/seed-catalog.mjs"
   },
   "dependencies": {
     "@prisma/client": "7.10.0",
     "@prisma/adapter-pg": "7.10.0",
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.0",
+    "@box/money": "workspace:*"
   },
   "devDependencies": {
     "prisma": "7.10.0"

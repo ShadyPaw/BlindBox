@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const base = 'http://127.0.0.1:3000';
+const base = 'http://127.0.0.1:3100';
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() =>
     sessionStorage.setItem('turbox-welcome-dismissed', '1'),
@@ -52,13 +52,17 @@ test('detail quantity, switches, prize information and sign-in validation', asyn
   await page.getByRole('button', { name: '關閉', exact: true }).click();
   await page.getByRole('button', { name: '以 $7.74 開箱' }).click();
   const dialog = page.getByRole('dialog');
-  await expect(dialog.getByRole('button', { name: '繼續' })).toBeDisabled();
+  await expect(
+    dialog.getByRole('button', { name: '登入', exact: true }),
+  ).toBeDisabled();
   await dialog
-    .getByRole('textbox', { name: '手機號碼或郵箱', exact: true })
+    .getByRole('textbox', { name: '電子郵箱', exact: true })
     .fill('preview@example.com');
-  await dialog.getByRole('button', { name: '繼續' }).click();
-  await expect(dialog.getByRole('status')).toContainText('未發送驗證碼');
-  await dialog.getByRole('button', { name: '使用密碼登入' }).click();
+  await dialog
+    .getByLabel('密碼', { exact: true })
+    .fill('wrong password example');
+  await dialog.getByRole('button', { name: '登入', exact: true }).click();
+  await expect(dialog.getByRole('status')).toContainText('郵箱或密碼不正確');
   await expect(dialog.getByLabel('密碼', { exact: true })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
@@ -137,7 +141,7 @@ test('auth policy navigation closes the modal and social links have real destina
   await expect(
     page.getByRole('link', { name: 'Instagram', exact: true }),
   ).toHaveAttribute('href', 'https://www.instagram.com/turboxgg_/');
-  await page.getByRole('button', { name: '登入', exact: true }).click();
+  await page.getByRole('button', { name: '註冊', exact: true }).click();
   await page
     .getByRole('dialog')
     .getByRole('link', { name: '隱私政策' })

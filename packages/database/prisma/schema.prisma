@@ -1,9 +1,112 @@
 generator client {
-  provider = "prisma-client"
-  output = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "esm"
 }
+
 datasource db {
   provider = "postgresql"
 }
-// Domain models and migrations are intentionally deferred until product work.
+
+enum CatalogMode {
+  CONSUMER
+  COIN
+}
+
+enum MoneyUnit {
+  USD
+  COIN
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum CompletenessStatus {
+  COMPLETE
+  INCOMPLETE
+}
+
+model CatalogBox {
+  id                 String             @id
+  sourceKey          String             @unique
+  slug               String
+  name               String
+  description        String?
+  image              String
+  mode               CatalogMode
+  category           String
+  tags               String[]
+  displayOrder       Int
+  publicationStatus  PublicationStatus  @default(DRAFT)
+  completenessStatus CompletenessStatus @default(INCOMPLETE)
+  priceMinor         BigInt
+  priceUnit          MoneyUnit
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  items              CatalogBoxItem[]
+
+  @@unique([mode, slug])
+  @@index([publicationStatus, mode, displayOrder, id])
+  @@index([publicationStatus, mode, category, displayOrder, id])
+  @@index([publicationStatus, mode, priceMinor, id])
+}
+
+model CatalogBoxItem {
+  id                        String     @id
+  sourceKey                 String     @unique
+  boxId                     String
+  box                       CatalogBox @relation(fields: [boxId], references: [id], onDelete: Restrict)
+  name                      String
+  image                     String
+  displayOrder              Int
+  displayValueMinor         BigInt
+  displayValueUnit          MoneyUnit
+  /// Reference display only. NEVER use for Opening Engine outcomes or weights.
+  displayProbabilityPercent Decimal?   @db.Decimal(20, 12)
+  createdAt                 DateTime   @default(now())
+  updatedAt                 DateTime   @updatedAt
+
+  @@index([boxId, displayOrder, id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id           String               @id @default(cuid())
+  email        String               @unique
+  passwordHash String
+  role         Role                 @default(USER)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  sessions     Session[]
+  resetTokens  PasswordResetToken[]
+}
+
+model Session {
+  tokenHash String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  tokenHash String    @id
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  @@index([userId])
+  @@index([expiresAt])
+}

@@ -13,16 +13,21 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@box/database": "workspace:*",
+    "@box/logger": "workspace:*",
     "@box/types": "workspace:*",
     "@box/validation": "workspace:*",
-    "@box/logger": "workspace:*",
-    "@box/database": "workspace:*",
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
     "@nestjs/platform-fastify": "^11.1.0",
+    "fastify": "^5.6.0",
+    "ioredis": "^5.8.0",
+    "nodemailer": "10.0.10",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
-    "ioredis": "^5.8.0",
-    "fastify": "^5.6.0"
+    "@box/money": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "8.0.2"
   }
 }

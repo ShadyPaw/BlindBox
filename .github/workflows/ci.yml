@@ -46,8 +46,15 @@ jobs:
       - run: pnpm db:validate
       - run: pnpm typecheck
       - run: pnpm test
+      - run: pnpm db:deploy
+      - run: pnpm db:seed:catalog
       - run: pnpm test:integration
       - run: pnpm build
+        env:
+          # Build must not query the catalog or any runtime infrastructure.
+          API_INTERNAL_URL: http://127.0.0.1:9
+          DATABASE_URL: postgresql://offline:offline@127.0.0.1:9/offline
+          REDIS_URL: redis://127.0.0.1:9/0
       - run: pnpm exec playwright install --with-deps --no-shell chromium
       - run: pnpm test:e2e
       - uses: actions/upload-artifact@v4

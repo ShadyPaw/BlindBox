@@ -16,7 +16,8 @@
     "@box/logger": "workspace:*",
     "next": "^16.3.5",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "@box/money": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

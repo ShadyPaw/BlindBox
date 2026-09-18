@@ -10,6 +10,10 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm build
 RUN pnpm --filter @box/api deploy --legacy --prod /out/api && pnpm --filter @box/worker deploy --legacy --prod /out/worker
 
+FROM build AS migrate
+USER node
+CMD ["pnpm", "db:deploy"]
+
 FROM node:22-bookworm-slim AS api
 ENV NODE_ENV=production
 WORKDIR /app

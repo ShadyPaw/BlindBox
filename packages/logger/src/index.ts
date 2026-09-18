@@ -23,6 +23,8 @@ export function createLogger(
         'token',
         'DATABASE_URL',
         'REDIS_URL',
+        'SMTP_PASSWORD',
+        'passwordHash',
       ],
       censor: '[REDACTED]',
     },

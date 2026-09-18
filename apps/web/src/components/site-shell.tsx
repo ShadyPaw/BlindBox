@@ -12,11 +12,15 @@ import {
 } from 'react';
 import { Icon } from './icon';
 import { art } from '../data/catalog';
+import type { AuthUser } from '@box/types';
+import { AuthForm } from './auth-form';
+import { authRequest } from '../lib/auth-client';
 
 type DialogState = {
   kind: 'welcome' | 'auth' | 'info' | 'support';
   title?: string;
   body?: string;
+  mode?: 'login' | 'register';
 } | null;
 const SiteContext = createContext({
   login: () => {},
@@ -101,155 +105,49 @@ export function Modal({
   );
 }
 
-function AuthForm({ onNavigate }: { onNavigate: () => void }) {
-  const [mode, setMode] = useState<'verify' | 'password' | 'reset'>('verify');
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
-  const [agree, setAgree] = useState(true);
-  const [message, setMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const valid =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(account) ||
-    /^\+?[\d\s-]{7,18}$/.test(account);
-  return (
-    <>
-      <div className="auth-brand">
-        <img src="/reference/4e12ca7237f7ca5a.png" alt="TURBOX" />
-        <p>
-          {mode === 'password'
-            ? '登入您的帳戶'
-            : mode === 'reset'
-              ? '重設您的密碼'
-              : '登入或建立您的帳戶'}
-        </p>
-      </div>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          setMessage(
-            '前台演示：驗證服務尚未接入，未發送驗證碼，也未建立帳戶。',
-          );
-        }}
-      >
-        <label className="field-label">
-          手機號碼或郵箱
-          <input
-            autoComplete="username"
-            placeholder="手機號碼或郵箱"
-            value={account}
-            onChange={(e) => {
-              setAccount(e.target.value);
-              setMessage('');
-            }}
-          />
-        </label>
-        {mode === 'password' && (
-          <label className="field-label">
-            密碼
-            <div className="password-field">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                aria-label="密碼"
-                autoComplete="current-password"
-                placeholder="密碼"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                type="button"
-                aria-label={showPassword ? '隱藏密碼' : '顯示密碼'}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? '隱藏' : '顯示'}
-              </button>
-            </div>
-          </label>
-        )}
-        <button
-          className="primary wide"
-          disabled={
-            !valid ||
-            (mode !== 'password' && !agree) ||
-            (mode === 'password' && password.length < 6)
-          }
-        >
-          {mode === 'password'
-            ? '登入'
-            : mode === 'reset'
-              ? '發送重設連結'
-              : '繼續'}
-        </button>
-        <div className="auth-options">
-          <label>
-            <input
-              type="checkbox"
-              checked={agree}
-              onChange={(e) => setAgree(e.target.checked)}
-            />
-            {mode === 'password' ? (
-              '記住我'
-            ) : (
-              <>
-                我同意{' '}
-                <Link href="/protocol/terms" onClick={onNavigate}>
-                  服務條款
-                </Link>{' '}
-                和{' '}
-                <Link href="/protocol/privacy" onClick={onNavigate}>
-                  隱私政策
-                </Link>
-              </>
-            )}
-          </label>
-          {mode === 'password' && (
-            <button
-              type="button"
-              onClick={() => {
-                setMode('reset');
-                setMessage('');
-              }}
-            >
-              忘記密碼？
-            </button>
-          )}
-        </div>
-        {mode !== 'password' && (
-          <p className="auth-help">
-            请选择手机号对应的国家电话区号。已有账号将登录，新用户将自动创建账号。
-          </p>
-        )}
-        {message && (
-          <p role="status" className="notice">
-            {message}
-          </p>
-        )}
-      </form>
-      <button
-        className="secondary wide google"
-        onClick={() => setMessage('Google 登入將在接入帳戶服務後開放。')}
-      >
-        <b>G</b> Google
-      </button>
-      <button
-        className="secondary wide"
-        onClick={() => {
-          setMode(mode === 'password' ? 'verify' : 'password');
-          setMessage('');
-        }}
-      >
-        {mode === 'password' ? '手機號碼或郵箱驗證' : '使用密碼登入'}
-      </button>
-    </>
-  );
-}
-
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [dialog, setDialog] = useState<DialogState>(null);
   const free = pathname.startsWith('/coin-boxes');
   const [menu, setMenu] = useState(false);
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const authVersion = useRef(0);
   useEffect(() => {
+    const controller = new AbortController();
+    const refresh = () => {
+      const version = ++authVersion.current;
+      fetch('/api/auth/me', { cache: 'no-store', signal: controller.signal })
+        .then(async (response) => {
+          if (response.ok) {
+            const result = await response.json();
+            if (version === authVersion.current) setUser(result.user);
+          } else if (response.status === 401 && version === authVersion.current)
+            setUser(null);
+        })
+        .catch(() => {});
+    };
+    refresh();
+    window.addEventListener('focus', refresh);
+    window.addEventListener('box-auth-changed', refresh);
+    return () => {
+      controller.abort();
+      window.removeEventListener('focus', refresh);
+      window.removeEventListener('box-auth-changed', refresh);
+    };
+  }, [pathname]);
+  useEffect(() => {
+    if (new URL(window.location.href).searchParams.get('login') === '1') {
+      sessionStorage.setItem('turbox-welcome-dismissed', '1');
+      setDialog({ kind: 'auth' });
+      return;
+    }
+    if (
+      window.location.pathname === '/reset-password' ||
+      window.location.pathname === '/account'
+    )
+      return;
     if (!sessionStorage.getItem('turbox-welcome-dismissed')) {
       const timer = setTimeout(
         () => setDialog((value) => value ?? { kind: 'welcome' }),
@@ -257,13 +155,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
       );
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [pathname]);
   function close() {
     if (dialog?.kind === 'welcome')
       sessionStorage.setItem('turbox-welcome-dismissed', '1');
     setDialog(null);
   }
   function login() {
+    if (user) {
+      info('功能開發中', '您已登入。開箱、福利領取和背包將於後續階段開放。');
+      return;
+    }
     sessionStorage.setItem('turbox-welcome-dismissed', '1');
     setDialog({ kind: 'auth' });
     setMenu(false);
@@ -273,6 +175,21 @@ export function SiteShell({ children }: { children: ReactNode }) {
     body = '此頁面為前台預覽。完整內容與服務將在後端接入後提供。',
   ) {
     setDialog({ kind: 'info', title, body });
+  }
+  async function logout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await authRequest('logout', {});
+      authVersion.current++;
+      setUser(null);
+      router.push('/');
+      router.refresh();
+    } catch (error) {
+      info('登出失敗', error instanceof Error ? error.message : '請稍後重試');
+    } finally {
+      setLoggingOut(false);
+    }
   }
   return (
     <SiteContext.Provider value={{ login, info, free }}>
@@ -333,12 +250,35 @@ export function SiteShell({ children }: { children: ReactNode }) {
               免費
             </button>
           </div>
-          <button className="secondary login-button" onClick={login}>
-            登入
-          </button>
-          <button className="primary register-button" onClick={login}>
-            註冊
-          </button>
+          {user ? (
+            <>
+              <Link className="secondary account-link" href="/account">
+                我的帳戶
+              </Link>
+              <button
+                className="primary"
+                disabled={loggingOut}
+                onClick={logout}
+              >
+                {loggingOut ? '登出中…' : '登出'}
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="secondary login-button" onClick={login}>
+                登入
+              </button>
+              <button
+                className="primary register-button"
+                onClick={() => {
+                  sessionStorage.setItem('turbox-welcome-dismissed', '1');
+                  setDialog({ kind: 'auth', mode: 'register' });
+                }}
+              >
+                註冊
+              </button>
+            </>
+          )}
           <button
             className="menu-button"
             aria-label="展開選單"
@@ -483,7 +423,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Icon name="gift" />
           背包
         </button>
-        <button onClick={login}>
+        <button onClick={() => (user ? router.push('/account') : login())}>
           <Icon name="user" />
           個人中心
         </button>
@@ -540,7 +480,16 @@ export function SiteShell({ children }: { children: ReactNode }) {
               />
             </>
           ) : dialog.kind === 'auth' ? (
-            <AuthForm onNavigate={close} />
+            <AuthForm
+              initialMode={dialog.mode ?? 'login'}
+              onNavigate={close}
+              onSuccess={(account) => {
+                authVersion.current++;
+                setUser(account);
+                close();
+                router.refresh();
+              }}
+            />
           ) : dialog.kind === 'support' ? (
             <>
               <h2>聯絡客服</h2>

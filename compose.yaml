@@ -36,6 +36,16 @@ services:
       timeout: 3s
       retries: 20
     restart: unless-stopped
+  migrate:
+    profiles: ['apps']
+    build:
+      context: .
+      target: migrate
+    environment:
+      DATABASE_URL: postgresql://box:${POSTGRES_PASSWORD:-box_local_password}@postgres:5432/box
+    depends_on:
+      postgres: { condition: service_healthy }
+    restart: 'no'
   api:
     profiles: ['apps']
     build:
@@ -46,11 +56,20 @@ services:
       DATABASE_URL: postgresql://box:${POSTGRES_PASSWORD:-box_local_password}@postgres:5432/box
       REDIS_URL: redis://redis:6379/0
       API_PORT: 3002
-      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:3001}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3000}
+      MAIL_TRANSPORT: ${MAIL_TRANSPORT_PRODUCTION:-disabled}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-no-reply@example.com}
     ports: ['127.0.0.1:3002:3002']
     depends_on:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
     healthcheck:
       test:
         [
@@ -95,6 +114,9 @@ services:
     build:
       context: .
       target: web
+    environment:
+      API_INTERNAL_URL: http://api:3002
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3000}
     ports: ['127.0.0.1:3000:3000']
     init: true
     restart: unless-stopped
