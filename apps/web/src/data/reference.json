@@ -1,0 +1,439 @@
+{
+  "catalog": [
+    {
+      "name": "Everyday Sync",
+      "price": 2.58,
+      "slug": "everyday-sync",
+      "image": "/reference/00a997ed93ec5d77.png",
+      "badge": "new",
+      "collectible": false
+    },
+    {
+      "name": "One Piece Voyage",
+      "price": 0.39,
+      "slug": "one-piece-voyage",
+      "image": "/reference/227727eab110e051.png",
+      "badge": "new",
+      "collectible": true
+    },
+    {
+      "name": "Charizard Dream Chase",
+      "price": 2.99,
+      "slug": "charizard-dream-chase",
+      "image": "/reference/0159307ad645020b.webp",
+      "badge": "new",
+      "collectible": true
+    },
+    {
+      "name": "Mega Evolution Discovery",
+      "price": 0.8,
+      "slug": "mega-evolution-discovery",
+      "image": "/reference/396d99e1f36e4261.png",
+      "badge": "new",
+      "collectible": true
+    },
+    {
+      "name": "Desk Gear Discovery",
+      "price": 1,
+      "slug": "desk-gear-discovery",
+      "image": "/reference/d8da27842986b214.webp",
+      "badge": "new",
+      "collectible": false
+    },
+    {
+      "name": "Sports Card Vault",
+      "price": 0.5,
+      "slug": "sports-card-vault",
+      "image": "/reference/5e03041251f43277.png",
+      "badge": "new",
+      "collectible": true
+    },
+    {
+      "name": "Next-Gen Discovery",
+      "price": 0.5,
+      "slug": "next-gen-discovery",
+      "image": "/reference/7e903b08c4bc3972.png",
+      "badge": "new",
+      "collectible": false
+    },
+    {
+      "name": "Pokémon 30th Discovery",
+      "price": 2.88,
+      "slug": "pokemon-30th-discovery",
+      "image": "/reference/e32c245d737d7a7e.webp",
+      "badge": "new",
+      "collectible": true
+    },
+    {
+      "name": "Tech Sidekick",
+      "price": 0.88,
+      "slug": "tech-sidekick",
+      "image": "/reference/9e91dc9c85e15bce.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Charizard Across Eras",
+      "price": 1.96,
+      "slug": "charizard-across-eras",
+      "image": "/reference/ce4714d8463349c5bfe09349fd6f7821.png",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Pokémon Chase Cards",
+      "price": 6.99,
+      "slug": "pokemon-chase-cards",
+      "image": "/reference/42cab30bb68a4d9aae1b6821931e436c.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Fandom Finds",
+      "price": 2.26,
+      "slug": "fandom-finds",
+      "image": "/reference/fadbd480df494aafb4f0c99e97ceb70a.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Poké Quest",
+      "price": 9.9,
+      "slug": "poke-quest",
+      "image": "/reference/731903450c6341a8.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Pikachu Electric Glow",
+      "price": 1.98,
+      "slug": "pikachu-electric-glow",
+      "image": "/reference/46354a0576be06a0.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Phantom Flame",
+      "price": 2.4,
+      "slug": "phantom-flame",
+      "image": "/reference/4f963ecbde0550b3.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Hot Wheels Vault",
+      "price": 6.8,
+      "slug": "hot-wheels-vault",
+      "image": "/reference/519141fda2814fde9010e04800519f48.png",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Squirtle Splash",
+      "price": 6.88,
+      "slug": "squirtle-splash",
+      "image": "/reference/c2ed2f1544b841ada36a6371c1e534fd.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Card Chasing Experience",
+      "price": 5.46,
+      "slug": "card-chasing-experience",
+      "image": "/reference/5ae4d68f2376427ca8afcc50530eea42.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "PlayStation Home Base",
+      "price": 4.99,
+      "slug": "playstation-home-base",
+      "image": "/reference/2303024c3df1e64a.png",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Lite Tech Bliss",
+      "price": 5,
+      "slug": "lite-tech-bliss",
+      "image": "/reference/3c4bab0d7db1ea84.png",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Mystic Mana",
+      "price": 9.9,
+      "slug": "mystic-mana",
+      "image": "/reference/2e455fbcc1024515bd88b2e3568ad9d0.png",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Fruit Vibe Life Bundle",
+      "price": 69.99,
+      "slug": "fruit-vibe-life-bundle",
+      "image": "/reference/d8f6af0381f441409e4d471087696fb2.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Pocket Paradise",
+      "price": 39.99,
+      "slug": "pocket-paradise",
+      "image": "/reference/55fe558f03cf419dbb9644d1b7ec2ff8.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Pokémon Card Realm",
+      "price": 17.5,
+      "slug": "pokemon-card-realm",
+      "image": "/reference/1a062c6effc670cb.webp",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Dragon Ball Awakening",
+      "price": 12,
+      "slug": "dragon-ball-awakening",
+      "image": "/reference/19e2b1cc73b0464b938f41971b94b0d9.png",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Pocket Creator",
+      "price": 12.99,
+      "slug": "pocket-creator",
+      "image": "/reference/7cf43c5356f149c4b866dba884d2c5ef.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Nendoroid Quest",
+      "price": 3.88,
+      "slug": "nendoroid-quest",
+      "image": "/reference/be351f0a944062e4.png",
+      "badge": "hot",
+      "collectible": true
+    },
+    {
+      "name": "Hooked Outdoors",
+      "price": 9.9,
+      "slug": "hooked-outdoors",
+      "image": "/reference/50100d6f090849099dab3568a54d7f34.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Flip the Galaxy",
+      "price": 15,
+      "slug": "flip-the-galaxy",
+      "image": "/reference/8fe02e5a879749fd8a41a55c38a72183.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Watches in Orbit",
+      "price": 20,
+      "slug": "watches-in-orbit",
+      "image": "/reference/b3503d296dbb4525bf638a45daf8495f.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Keyboard Upgrade",
+      "price": 18.8,
+      "slug": "keyboard-upgrade",
+      "image": "/reference/9c9d5cd310bf44bb9bcb5cf9155c464b.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Downhill Rush",
+      "price": 10,
+      "slug": "downhill-rush",
+      "image": "/reference/8f84b3e21ee54900a06a1e21c384ce17.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "PC Game Vault",
+      "price": 8.88,
+      "slug": "pc-game-vault",
+      "image": "/reference/2ccae6eead804b33a8f7135348220db9.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Apple Mode",
+      "price": 19.8,
+      "slug": "apple-mode",
+      "image": "/reference/130415216118486a95419c103d81e4db.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Battle Station",
+      "price": 29.8,
+      "slug": "battle-station",
+      "image": "/reference/6e2e1f99340747f8b415b7f91a0896de.webp",
+      "badge": "hot",
+      "collectible": false
+    },
+    {
+      "name": "Dragonite Card Vault",
+      "price": 9.8,
+      "slug": "dragonite-card-vault",
+      "image": "/reference/8e03bb464a4044468f3d33f1792ad4fd.webp",
+      "badge": "hot",
+      "collectible": true
+    }
+  ],
+  "prizes": [
+    {
+      "name": "iPad 11-inch (A16) Wi-Fi",
+      "price": 449,
+      "probability": 0.017,
+      "image": "/reference/76956cf03db04b65893e8ec7db0a2a9c.png"
+    },
+    {
+      "name": "Apple Watch Series 11 GPS 46mm",
+      "price": 429,
+      "probability": 0.017,
+      "image": "/reference/412dd47b9a34446497eaf4227618a9b7.png"
+    },
+    {
+      "name": "Apple Watch Series 11 GPS 42mm",
+      "price": 399,
+      "probability": 0.016,
+      "image": "/reference/d54d8305d4d64d34bc459348f7330d8a.png"
+    },
+    {
+      "name": "AirPods Pro 3",
+      "price": 249,
+      "probability": 0.099,
+      "image": "/reference/9e127a5af6364a9a8e99b0ee76c07eb3.png"
+    },
+    {
+      "name": "Apple TV 4K",
+      "price": 246,
+      "probability": 0.106,
+      "image": "/reference/e7a424860c4247a3bffe522461fe6231.png"
+    },
+    {
+      "name": "AirPods 4 with Active Noise Cancellation",
+      "price": 179,
+      "probability": 0.194,
+      "image": "/reference/da438059a6f74ee4a6ad2b21046c7995.png"
+    },
+    {
+      "name": "HomePod mini Smart Speaker",
+      "price": 129,
+      "probability": 0.186,
+      "image": "/reference/07402406a1304b1db029ab492b7c114c.png"
+    },
+    {
+      "name": "Apple Pencil (USB-C)",
+      "price": 79,
+      "probability": 0.452,
+      "image": "/reference/d2698e10de25459aa5dba2df82eb5f0b.png"
+    },
+    {
+      "name": "USB-C to USB-A OTG Adapter",
+      "price": 3.38,
+      "probability": 16.913,
+      "image": "/reference/db8a569cc93346d791be0e7314046bc5.png"
+    },
+    {
+      "name": "Skull Valve Stem Caps",
+      "price": 0.2,
+      "probability": 82,
+      "image": "/reference/9336bb25c43542d59e2f547588716c7f.webp"
+    }
+  ],
+  "art": [
+    "/reference/002f6f4c60818cae.webp",
+    "/reference/0a3e8eb6ca2f78da.webp",
+    "/reference/227727eab110e051.png",
+    "/reference/7e903b08c4bc3972.png",
+    "/reference/e32c245d737d7a7e.webp",
+    "/reference/396d99e1f36e4261.png",
+    "/reference/00a997ed93ec5d77.png",
+    "/reference/d8da27842986b214.webp",
+    "/reference/7b4e25f605795b04.gif",
+    "/reference/1af8a24dab61de7e.png",
+    "/reference/b4481891ce2a951a.png",
+    "/reference/791afe8c2403c904.png",
+    "/reference/42d3f5293dcab0e1.png",
+    "/reference/f7bc02d7e07f14e2.png",
+    "/reference/35f61a024feeb6d5.png",
+    "/reference/92255b0ce1c8adf4.png",
+    "/reference/caea2aaa327f4014.png",
+    "/reference/51b1041a7716929e.png",
+    "/reference/0ed6309886497918.png",
+    "/reference/52f1deed08ec5cbf.png",
+    "/reference/411e28e923f4103c.png",
+    "/reference/1df5657955a4840a.png",
+    "/reference/d088f57e5f957436.png",
+    "/reference/5fbd1dcefa401af2.webp",
+    "/reference/8512841e93bf2278.png",
+    "/reference/2303024c3df1e64a.png",
+    "/reference/754f8ae3459c8e29.webp",
+    "/reference/c4e0c57bcdf0612b.webp",
+    "/reference/0159307ad645020b.webp",
+    "/reference/63d6687759f1d303.jpg",
+    "/reference/f8c5a6681a067487.webp",
+    "/reference/6774dfa2d43adf95.png",
+    "/reference/f44adb8c7941a8a9.webp",
+    "/reference/5410df346dcf047c.webp",
+    "/reference/5e03041251f43277.png",
+    "/reference/9e91dc9c85e15bce.webp",
+    "/reference/e75955c6e3b75ceb.webp",
+    "/reference/731903450c6341a8.webp",
+    "/reference/83de7edbf9b2a5de.webp",
+    "/reference/f3fcf6e9ecf5e091.webp",
+    "/reference/43b8b5a601457589.webp",
+    "/reference/4c9923430455ae96.webp",
+    "/reference/0012938dec6e392b.png",
+    "/reference/269146214eaee789.webp",
+    "/reference/b7b3a94f87844dfe.webp",
+    "/reference/4f963ecbde0550b3.webp",
+    "/reference/5b75a4e99c60f33b.webp",
+    "/reference/1a062c6effc670cb.webp",
+    "/reference/4c405a52c48ab79a.webp",
+    "/reference/f45ae5ca34a89936.webp",
+    "/reference/be351f0a944062e4.png",
+    "/reference/12f92d5c18ccffe3.webp",
+    "/reference/8df331c8a13d1133.png",
+    "/reference/e80911e2f719e0a8.webp",
+    "/reference/3c4bab0d7db1ea84.png",
+    "/reference/31b56b65cfba4bfa.webp",
+    "/reference/e9ae6bb83e476f99.jpg",
+    "/reference/46390c67037ac67d.png",
+    "/reference/0f27a0c21abb2843.webp",
+    "/reference/54b05f345f5d9d0b.webp",
+    "/reference/dfba53908c2764a5.webp",
+    "/reference/2e1d9b5a100b4b6b.webp",
+    "/reference/1a45162e05c670f5.webp",
+    "/reference/81793d33e7f7e421.jpg",
+    "/reference/d8ba26daf48503bb.webp",
+    "/reference/d10f1f30dbc7944e.webp",
+    "/reference/22dabaf3bdba8b6a.webp",
+    "/reference/0249b4724d00314d.webp",
+    "/reference/6c865fba8de7bb74.webp",
+    "/reference/46354a0576be06a0.webp",
+    "/reference/d2b1818201955a16.webp",
+    "/reference/c7f2e299404de85d.webp",
+    "/reference/183a001a9d142226.webp",
+    "/reference/dcd4f500dd6b034e.webp",
+    "/reference/c157cd67de7c46f5.webp",
+    "/reference/ebed846be2881650.webp",
+    "/reference/d35bbce364821b8c.webp",
+    "/reference/2c711f275c755668.webp",
+    "/reference/576fbe6956db62ba.webp"
+  ],
+  "extras": {
+    "vip40": "/reference/8e6acf9fb0dd4dd783e795cbc8d492fa.png",
+    "vip50": "/reference/ca0eba54c027486f9f4e8f21749fc177.png"
+  }
+}

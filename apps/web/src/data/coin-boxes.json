@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Cozy Christmas",
+    "price": 99,
+    "slug": "cozy-christmas",
+    "image": "/reference/693055025a47446c98b255a125b2df57.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Hype Radar",
+    "price": 990,
+    "slug": "hype-radar",
+    "image": "/reference/3b7513c30cf94eb1be86eaba6404aa08.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Boros Bundle",
+    "price": 350,
+    "slug": "boros-bundle",
+    "image": "/reference/250d18298a6b4ebc84bd2af8a2ab2a12.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "PC Power",
+    "price": 150,
+    "slug": "pc-power",
+    "image": "/reference/10015275dd5a4c1aba4ac48a63598f20.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Desktop Collectibles",
+    "price": 100,
+    "slug": "desktop-collectibles",
+    "image": "/reference/27fbcd8ca0c24e5b89bddf7060f58caa.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Explore the Unknown",
+    "price": 1250,
+    "slug": "explore-the-unknown",
+    "image": "/reference/f20497052cef4df79c679bc6937203bc.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Ride Ready",
+    "price": 600,
+    "slug": "ride-ready",
+    "image": "/reference/6148c76d31e0475db06483f9b27d57a3.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Icon Quest",
+    "price": 220,
+    "slug": "icon-quest",
+    "image": "/reference/8e11a29a685641d386db5332d5e9fea5.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Game Worlds",
+    "price": 990,
+    "slug": "game-worlds",
+    "image": "/reference/930a64c741ef4d98bfd7c568f4bbf332.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Leafy Discovery",
+    "price": 888,
+    "slug": "leafy-discovery",
+    "image": "/reference/225de4ca6a7f4912bc4b757b5b6f4238.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Pocket Paradise",
+    "price": 3999,
+    "slug": "pocket-paradise",
+    "image": "/reference/55fe558f03cf419dbb9644d1b7ec2ff8.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Holiday Dream",
+    "price": 555,
+    "slug": "holiday-dream",
+    "image": "/reference/73fc92a2425d40cc8a21bacb9f3f0e56.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Retro Reboot",
+    "price": 388,
+    "slug": "retro-reboot",
+    "image": "/reference/8c200f55de2e4771abd4c1db8a7b3e11.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Wear the Joke",
+    "price": 499,
+    "slug": "wear-the-joke",
+    "image": "/reference/11d93d0449224c39abc4c0008ffcef69.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "iPhone Upgrade Quest",
+    "price": 150,
+    "slug": "iphone-upgrade-quest",
+    "image": "/reference/396795259cf94358b803687fe48ca7d9.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Garage Ready",
+    "price": 500,
+    "slug": "garage-ready",
+    "image": "/reference/f6f42db2f677484eb3aae59c6b16927c.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Midnight Mischief",
+    "price": 666,
+    "slug": "midnight-mischief",
+    "image": "/reference/25ea103a242a4f2e8e97a78348551acb.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  },
+  {
+    "name": "Polar Picks",
+    "price": 500,
+    "slug": "polar-picks",
+    "image": "/reference/be424336392a47f091c26d4db03a5bad.webp",
+    "badge": "",
+    "collectible": false,
+    "currency": "coins"
+  }
+]

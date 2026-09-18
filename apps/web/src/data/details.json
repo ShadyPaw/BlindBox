@@ -1,0 +1,266 @@
+{
+  "one-piece-voyage": [
+    {
+      "name": "Sanji — Championship 2024 Finalist Card Set",
+      "price": 600,
+      "probability": 0.001,
+      "image": "/reference/f22df7124dfe46d39877e86aff3f13c8.jpg"
+    },
+    {
+      "name": "Jinbe (CS 2024 Event Pack Finalist)",
+      "price": 319,
+      "probability": 0.001,
+      "image": "/reference/9daaa02ac2214eaba4bca729b30c13a7.jpg"
+    },
+    {
+      "name": "Trafalgar Law (SP) - Adventure on Kami’s Island (OP15-EB04)",
+      "price": 313.99,
+      "probability": 0.001,
+      "image": "/reference/52be40286125462eb9f6d950e893f775.jpg"
+    },
+    {
+      "name": "Monkey.D.Luffy (Super Pre-Release) [Participant]",
+      "price": 200.2,
+      "probability": 0.003,
+      "image": "/reference/e9d7fe8745a64d5cb668a59dee66d12e.jpg"
+    },
+    {
+      "name": "Smoker & Tashigi (SP) - Adventure on Kami’s Island (OP15-EB04)",
+      "price": 99.98,
+      "probability": 0.003,
+      "image": "/reference/2d97a8ba6db64f1a9c81c57d64d57abb.jpg"
+    },
+    {
+      "name": "Nami (P-053) (Full Art) - Premium Booster -The Best- (PRB-01)",
+      "price": 50.3,
+      "probability": 0.135,
+      "image": "/reference/1c5d7ea613484dcca0ad1a82e3ae3074.jpg"
+    },
+    {
+      "name": "Roronoa Zoro (Round 1 Promo) - One Piece Promotion Cards (OP-PR)",
+      "price": 50.23,
+      "probability": 0.08,
+      "image": "/reference/dc5adc271ee14e99b64b3c81e723553a.jpg"
+    },
+    {
+      "name": "Perona (Judge Pack Vol. 5)",
+      "price": 9.93,
+      "probability": 0.8,
+      "image": "/reference/58217b6b098946c0ac0a1fa45cd5ec1e.jpg"
+    },
+    {
+      "name": "Koala - Extra Booster: One Piece Heroines Edition (EB-03-04)",
+      "price": 0.43,
+      "probability": 14.976,
+      "image": "/reference/21d8341ccd0646fa85ff64e0aca2645b.jpg"
+    },
+    {
+      "name": "Nefeltari Vivi (001) - Extra Booster: One Piece Heroines Edition (EB-03-04)",
+      "price": 0.1,
+      "probability": 84,
+      "image": "/reference/89df2f08aba742018b9eb7839e499c67.jpg"
+    }
+  ],
+  "next-gen-discovery": [
+    {
+      "name": "iPhone Duo 256GB",
+      "price": 2399,
+      "probability": 0.001,
+      "image": "/reference/c9b276b6fbd049af82f65fd2ed31ea70.webp"
+    },
+    {
+      "name": "iPhone 18 Pro Max 256GB",
+      "price": 1558,
+      "probability": 0.001,
+      "image": "/reference/2740db6fee814082bb7c532f7bce7635.webp"
+    },
+    {
+      "name": "iPhone 18 Pro 256GB",
+      "price": 1438,
+      "probability": 0.001,
+      "image": "/reference/cec8b81b82974ac986d60a202c71c589.webp"
+    },
+    {
+      "name": "SCUF Iridescent Wireless Gaming Controller",
+      "price": 290,
+      "probability": 0.005,
+      "image": "/reference/e497ef15e6d049739e5f07e45b636ce4.webp"
+    },
+    {
+      "name": "Meta Quest 2 VR Headset",
+      "price": 260,
+      "probability": 0.005,
+      "image": "/reference/f3f652985f994c37bbb6a72acb5f7457.webp"
+    },
+    {
+      "name": "MSI GTX 1650 Gaming Graphics Card",
+      "price": 210,
+      "probability": 0.005,
+      "image": "/reference/0bcf426d8c9c48ceb0472239c8368e38.webp"
+    },
+    {
+      "name": "Razer Viper 8000Hz Gaming Mouse",
+      "price": 80,
+      "probability": 0.01,
+      "image": "/reference/f637b3affb4a418ea9d353b082ce9aec.webp"
+    },
+    {
+      "name": "iPhone 15 Pro Clear Case",
+      "price": 49,
+      "probability": 0.02,
+      "image": "/reference/47ec15cc725e4184a8fc4a40aec659b2.webp"
+    },
+    {
+      "name": "Apple AirTag Smart Tracker",
+      "price": 31,
+      "probability": 0.05,
+      "image": "/reference/5e28186b84d44d1ba78cd710ac417295.webp"
+    },
+    {
+      "name": "16GB Ultra Flair USB Flash Drive",
+      "price": 15,
+      "probability": 0.3,
+      "image": "/reference/0bf0098df73c4fc7a41c5c6b1e42ba8e.webp"
+    },
+    {
+      "name": "Apple USB-C Charging Cable",
+      "price": 8.95,
+      "probability": 0.6,
+      "image": "/reference/4ea1888818824c84a3950134a64abb49.webp"
+    },
+    {
+      "name": "UGREEN Earphone Storage Case",
+      "price": 4.4,
+      "probability": 1,
+      "image": "/reference/3d52428af6ee43bf8c8083575cf349ba.webp"
+    },
+    {
+      "name": "Micro SD Card",
+      "price": 1,
+      "probability": 6,
+      "image": "/reference/1d6112c2dafe41a99522390d2ad9f7cf.png"
+    },
+    {
+      "name": "Gateron Cherry MX Mechanical Switch Keychain Tester",
+      "price": 0.8,
+      "probability": 5,
+      "image": "/reference/d0426d4fdcdc4e3b9a5ffd309c9077eb.png"
+    },
+    {
+      "name": "Mini Digital Accessory Storage Pouch",
+      "price": 0.1,
+      "probability": 87.002,
+      "image": "/reference/f66cd5e280234547b8d1d65d46faef77.webp"
+    }
+  ],
+  "cozy-christmas": [
+    {
+      "name": "Women's Christmas Pajamas",
+      "price": 2400,
+      "probability": 0.5,
+      "image": "/reference/b44042c143c042d9a2b13b8a3a0b71a4.webp"
+    },
+    {
+      "name": "DIY Ornament Crafting Kit",
+      "price": 2000,
+      "probability": 0.5,
+      "image": "/reference/8701e2a6768445c097f45956ed904f92.webp"
+    },
+    {
+      "name": "Premium Red Wrapping Paper",
+      "price": 919,
+      "probability": 0.8,
+      "image": "/reference/08d033b993f648ac81839d5e37bc0fe1.webp"
+    },
+    {
+      "name": "Christmas Teddy Bear Plush",
+      "price": 850,
+      "probability": 1,
+      "image": "/reference/61b71006677743d38d40833013f2bb97.webp"
+    },
+    {
+      "name": "Reindeer Antlers",
+      "price": 800,
+      "probability": 1,
+      "image": "/reference/752b6a86f94a48e38c66ca300fadee53.webp"
+    },
+    {
+      "name": "Reindeer Slippers",
+      "price": 600,
+      "probability": 1.2,
+      "image": "/reference/195cdaf489764e1aaa304142d9b996f9.webp"
+    },
+    {
+      "name": "Miniature Decorative Christmas Stockings",
+      "price": 500,
+      "probability": 1.25,
+      "image": "/reference/4b8403b1f67743b7b343892fd9aa1a49.webp"
+    },
+    {
+      "name": "Christmas Themed Washi Tape",
+      "price": 360,
+      "probability": 1.5,
+      "image": "/reference/fe0ab92ce678453fb844e650b11df7a6.webp"
+    },
+    {
+      "name": "Christmas Reusable Straws",
+      "price": 300,
+      "probability": 1.75,
+      "image": "/reference/468219fe94424c2784c0ccd4d12f91ae.webp"
+    },
+    {
+      "name": "Christmas Confetti",
+      "price": 250,
+      "probability": 2,
+      "image": "/reference/33ce3e5056b943e1be990e81f3f9c404.webp"
+    },
+    {
+      "name": "Hot Chocolate Drink Powder Mix",
+      "price": 150,
+      "probability": 3.5,
+      "image": "/reference/f1d667e3140e4c19a49ed3f1ca7d20a6.webp"
+    },
+    {
+      "name": "Red Christmas Gift Bow",
+      "price": 100,
+      "probability": 3.5,
+      "image": "/reference/2c590689fb904a96a0367286826951de.webp"
+    },
+    {
+      "name": "Festive Cupcake Liners",
+      "price": 30,
+      "probability": 7.5,
+      "image": "/reference/0f0de528991d4e509472ca66c591edbd.webp"
+    },
+    {
+      "name": "Red Christmas Ornament",
+      "price": 25,
+      "probability": 7.5,
+      "image": "/reference/faf1774454944744a52921f31823f1fd.webp"
+    },
+    {
+      "name": "Christmas Sticker Pack",
+      "price": 10,
+      "probability": 12.5,
+      "image": "/reference/48fd1dc1e5034ea793e97b32dc79398e.webp"
+    },
+    {
+      "name": "Christmas Tree Eraser",
+      "price": 10,
+      "probability": 12.5,
+      "image": "/reference/7cbb8e809e154795b5bc7707024ec129.webp"
+    },
+    {
+      "name": "Gingerbread Man Cookie Cutter",
+      "price": 5,
+      "probability": 20,
+      "image": "/reference/3901cc2e8519485285fdf0c6bcb78da0.webp"
+    },
+    {
+      "name": "Sour Cherry Candy Cane",
+      "price": 3,
+      "probability": 21.5,
+      "image": "/reference/67e56cee655a48c5bce273d08148c614.webp"
+    }
+  ]
+}

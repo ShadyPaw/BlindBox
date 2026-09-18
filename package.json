@@ -1,0 +1,53 @@
+{
+  "name": "the-box",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.16.1",
+  "engines": {
+    "node": ">=22.14.0 <23",
+    "pnpm": ">=10 <11"
+  },
+  "scripts": {
+    "dev:setup": "node scripts/setup.mjs",
+    "dev": "pnpm build:packages && concurrently -k -n packages,apps \"pnpm dev:packages\" \"pnpm dev:apps\"",
+    "dev:packages": "pnpm --parallel --filter \"./packages/**\" --if-present dev",
+    "dev:apps": "pnpm --parallel --filter \"./apps/**\" dev",
+    "infra:up": "docker compose up -d --wait",
+    "infra:down": "docker compose down",
+    "db:generate": "pnpm --filter @box/database generate",
+    "db:validate": "pnpm --filter @box/database validate",
+    "db:migrate": "pnpm --filter @box/database migrate:dev",
+    "db:deploy": "pnpm --filter @box/database migrate:deploy",
+    "build:packages": "pnpm db:generate && pnpm --filter \"./packages/**\" -r build",
+    "build": "pnpm build:packages && pnpm --filter \"./apps/**\" -r --workspace-concurrency=1 build",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm build:packages && pnpm -r typecheck && tsc -p tsconfig.test.json",
+    "test": "pnpm build:packages && vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:integration": "pnpm build:packages && vitest run --config vitest.integration.config.ts",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.0.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.0",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^4.0.0",
+    "dotenv": "^17.2.0",
+    "@box/validation": "workspace:*",
+    "@box/logger": "workspace:*",
+    "@box/types": "workspace:*",
+    "bullmq": "^5.58.0"
+  }
+}

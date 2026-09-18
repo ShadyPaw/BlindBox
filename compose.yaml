@@ -1,0 +1,111 @@
+name: the-box
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: box
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-box_local_password}
+      POSTGRES_DB: box
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U box -d box']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  redis:
+    image: redis:7.4-alpine
+    command:
+      [
+        'redis-server',
+        '--appendonly',
+        'yes',
+        '--maxmemory-policy',
+        'noeviction',
+      ]
+    ports:
+      - '127.0.0.1:6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  api:
+    profiles: ['apps']
+    build:
+      context: .
+      target: api
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://box:${POSTGRES_PASSWORD:-box_local_password}@postgres:5432/box
+      REDIS_URL: redis://redis:6379/0
+      API_PORT: 3002
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+    ports: ['127.0.0.1:3002:3002']
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3002/health/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    init: true
+    restart: unless-stopped
+  worker:
+    profiles: ['apps']
+    build:
+      context: .
+      target: worker
+    environment:
+      NODE_ENV: production
+      REDIS_URL: redis://redis:6379/0
+      WORKER_PORT: 3003
+    ports: ['127.0.0.1:3003:3003']
+    depends_on:
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3003/health/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    init: true
+    stop_grace_period: 35s
+    restart: unless-stopped
+  web:
+    profiles: ['apps']
+    build:
+      context: .
+      target: web
+    ports: ['127.0.0.1:3000:3000']
+    init: true
+    restart: unless-stopped
+  admin:
+    profiles: ['apps']
+    build:
+      context: .
+      target: admin
+    ports: ['127.0.0.1:3001:3001']
+    init: true
+    restart: unless-stopped
+volumes:
+  postgres_data:
+  redis_data:

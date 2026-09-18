@@ -1,0 +1,12 @@
+{
+  "extends": "./packages/config/tsconfig.node.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["tests/**/*.ts", "vitest*.ts", "playwright.config.ts"]
+}

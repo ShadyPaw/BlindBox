@@ -1,0 +1,22 @@
+{
+  "name": "@box/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@box/types": "workspace:*",
+    "@box/validation": "workspace:*",
+    "@box/logger": "workspace:*",
+    "bullmq": "^5.58.0",
+    "fastify": "^5.6.0"
+  }
+}
