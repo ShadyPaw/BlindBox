@@ -1,6 +1,6 @@
 # BlindBox
 
-BlindBox 是一个使用 pnpm 管理的 TypeScript monorepo。目前参照 [TURBOX](https://turbox.club) 还原公开前台页面和交互，后续再接入业务后端。
+BlindBox 是一个使用 pnpm 管理的 TypeScript monorepo。
 
 **当前阶段：基础工程和前台预览已建立，尚未完成完整的 1:1 还原，也没有真实账户、开箱或交易服务。** 页面使用本地展示数据和图片，排行榜为参考快照。
 
