@@ -24,10 +24,8 @@ import { CatalogQueryService } from './catalog/service.js';
 import { CatalogController } from './catalog/controller.js';
 import { WalletQueryService } from './wallet/query-service.js';
 import { WalletController } from './wallet/controller.js';
-import { WalletLedgerService } from './wallet/ledger-service.js';
 
 export interface Dependencies {
-  ledger?: WalletLedgerService;
   wallet?: WalletQueryService;
   catalog?: CatalogQueryService;
   auth?: AuthRuntime;
@@ -47,7 +45,6 @@ export function createDependencies(env: ApiEnv): Dependencies {
   const logger = createLogger('api', env.LOG_LEVEL);
   redis.on('error', () => logger.warn('Redis connection unavailable'));
   return {
-    ledger: new WalletLedgerService(database),
     wallet: new WalletQueryService(database),
     catalog: new CatalogQueryService(database),
     auth: {
@@ -119,7 +116,6 @@ export async function createApp(
       WalletController,
     ],
     providers: [
-      { provide: 'WALLET_LEDGER', useValue: dependencies.ledger ?? null },
       { provide: 'WALLET_QUERY', useValue: dependencies.wallet ?? null },
       { provide: 'CATALOG_SERVICE', useValue: dependencies.catalog ?? null },
       { provide: 'DEPENDENCIES', useValue: dependencies },
