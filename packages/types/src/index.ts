@@ -1,4 +1,6 @@
 export type ServiceName = 'web' | 'admin' | 'api' | 'worker';
+export type * from './wallet.js';
+export type * from './wallet-ledger.js';
 export type CatalogMode = 'CONSUMER' | 'COIN';
 export type MoneyUnit = 'USD' | 'COIN';
 export interface CatalogBox {

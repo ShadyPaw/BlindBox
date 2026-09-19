@@ -1,5 +1,11 @@
 import { z } from 'zod';
 export {
+  walletPostingSchema,
+  walletTransactionsQuerySchema,
+  type WalletPosting,
+  type WalletTransactionsQuery,
+} from './wallet.js';
+export {
   catalogQuerySchema,
   catalogDetailQuerySchema,
   type CatalogQuery,

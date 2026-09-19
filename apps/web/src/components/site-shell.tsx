@@ -145,7 +145,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
     }
     if (
       window.location.pathname === '/reset-password' ||
-      window.location.pathname === '/account'
+      window.location.pathname === '/account' ||
+      window.location.pathname === '/wallet'
     )
       return;
     if (!sessionStorage.getItem('turbox-welcome-dismissed')) {
@@ -234,6 +235,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </button>
         </nav>
         <div className="header-actions">
+          <Link className="secondary wallet-header-link" href="/wallet">
+            錢包預覽
+          </Link>
           <div className={`mode-switch ${free ? 'free-mode' : ''}`}>
             <button
               className={!free ? 'selected' : ''}
@@ -411,6 +415,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </button>
       </div>
       <nav className="mobile-nav" aria-label="手機導覽">
+        <Link href="/wallet">
+          <Icon name="user" />
+          錢包預覽
+        </Link>
         <Link href="/">
           <Icon name="home" />
           首頁

@@ -6,6 +6,8 @@ BlindBox 是一个使用 pnpm 管理的 TypeScript monorepo。
 
 ## 项目当前情况
 
+2026-09-19 增加 [钱包与充值 UI 原型](docs/wallet-preview.md)，访问 `/wallet` 可体验金额选择、付款方式和结果演示。全部为虚构数据，不进行真实支付或入账；Phase 4 钱包账本和 Phase 8 支付仍待开发。
+
 本次更新：**Authentication + Phase 3 Catalog 阶段版本（2026-09-18）**。完整记录见 [更新日志](CHANGELOG.md)，16 个阶段的完成情况和剩余工作见 [项目进度与未完成事项](docs/project-status.md)。
 
 | 模块       | 已完成                                                                      | 当前边界                                                   |

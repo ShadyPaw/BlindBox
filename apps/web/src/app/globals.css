@@ -242,6 +242,28 @@ small {
 .header-actions > .secondary {
   min-width: 120px;
 }
+.header-actions > .wallet-header-link {
+  min-width: auto;
+  padding-inline: 12px;
+  white-space: nowrap;
+}
+@media (min-width: 768px) and (max-width: 1399px) {
+  .site-header {
+    padding-inline: 24px;
+    gap: 12px;
+  }
+  .header-actions {
+    gap: 8px;
+  }
+  .header-actions > .primary,
+  .header-actions > .secondary {
+    min-width: 80px;
+    padding-inline: 12px;
+  }
+  .mode-switch {
+    min-width: 150px;
+  }
+}
 .menu-button {
   display: none;
 }

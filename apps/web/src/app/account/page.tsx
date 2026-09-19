@@ -1,4 +1,5 @@
 import { requireUser } from '../../lib/auth-server';
+import Link from 'next/link';
 export const metadata = { title: '我的帳戶 · TURBOX' };
 export default async function Page() {
   const user = await requireUser();
@@ -19,6 +20,9 @@ export default async function Page() {
       <p className="notice">
         郵箱所有權驗證尚未開放；錢包、背包及交易功能將於後續階段接入。
       </p>
+      <Link className="primary" href="/wallet">
+        查看錢包與充值預覽
+      </Link>
     </section>
   );
 }

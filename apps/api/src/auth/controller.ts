@@ -20,6 +20,7 @@ import {
   type ApiEnv,
 } from '@box/validation';
 import type { AuthRuntime } from './service.js';
+import { sessionToken } from './session-cookie.js';
 
 function validated<T>(
   schema: {
@@ -49,14 +50,7 @@ export class AuthController {
       : 'box_session';
   }
   private token(req: FastifyRequest) {
-    const name = this.cookieName();
-    const values = (req.headers.cookie ?? '')
-      .split(';')
-      .map((part) => part.trim())
-      .filter((part) => part.startsWith(`${name}=`));
-    if (values.length !== 1) return undefined;
-    const value = values[0]!.slice(name.length + 1);
-    return /^[a-f0-9]{64}$/.test(value) ? value : undefined;
+    return sessionToken(req.headers.cookie, this.env);
   }
   private cookie(reply: FastifyReply, token: string, expiresAt: Date) {
     const secure =

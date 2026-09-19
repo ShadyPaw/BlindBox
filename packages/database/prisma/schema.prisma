@@ -78,14 +78,66 @@ enum Role {
 }
 
 model User {
-  id           String               @id @default(cuid())
-  email        String               @unique
-  passwordHash String
-  role         Role                 @default(USER)
-  createdAt    DateTime             @default(now())
-  updatedAt    DateTime             @updatedAt
-  sessions     Session[]
-  resetTokens  PasswordResetToken[]
+  id             String               @id @default(cuid())
+  email          String               @unique
+  passwordHash   String
+  role           Role                 @default(USER)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  sessions       Session[]
+  resetTokens    PasswordResetToken[]
+  walletAccounts WalletAccount[]
+}
+
+enum WalletAccountKind {
+  USER
+  CLEARING
+}
+
+enum WalletDirection {
+  CREDIT
+  DEBIT
+}
+
+model WalletAccount {
+  id           String            @id
+  kind         WalletAccountKind
+  userId       String?
+  user         User?             @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  unit         MoneyUnit
+  /// Projection maintained only by the ledger INSERT trigger; never update directly.
+  balanceMinor BigInt            @default(0)
+  createdAt    DateTime          @default(now())
+  outgoing     WalletTransfer[]  @relation("WalletOutgoing")
+  incoming     WalletTransfer[]  @relation("WalletIncoming")
+
+  @@unique([userId, unit])
+}
+
+/// An immutable, balanced pair: debit fromAccount and credit toAccount by the same amount/unit.
+/// SQL triggers enforce posting, account consistency and immutability, including raw SQL writes.
+model WalletTransfer {
+  id                    String          @id
+  sequence              BigInt          @unique @default(autoincrement())
+  idempotencyKey        String          @unique
+  requestHash           String
+  referenceType         String
+  referenceId           String
+  direction             WalletDirection
+  description           String
+  unit                  MoneyUnit
+  amountMinor           BigInt
+  fromAccountId         String
+  fromAccount           WalletAccount   @relation("WalletOutgoing", fields: [fromAccountId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  toAccountId           String
+  toAccount             WalletAccount   @relation("WalletIncoming", fields: [toAccountId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  fromBalanceAfterMinor BigInt          @default(0)
+  toBalanceAfterMinor   BigInt          @default(0)
+  createdAt             DateTime        @default(now())
+
+  @@unique([referenceType, referenceId, direction])
+  @@index([fromAccountId, sequence])
+  @@index([toAccountId, sequence])
 }
 
 model Session {
