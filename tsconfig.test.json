@@ -8,5 +8,5 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["tests/**/*.ts", "vitest*.ts", "playwright.config.ts"]
+  "include": ["tests/**/*.ts", "vitest*.ts", "playwright*.config.ts"]
 }

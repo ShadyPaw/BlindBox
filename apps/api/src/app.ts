@@ -24,8 +24,11 @@ import { CatalogQueryService } from './catalog/service.js';
 import { CatalogController } from './catalog/controller.js';
 import { WalletQueryService } from './wallet/query-service.js';
 import { WalletController } from './wallet/controller.js';
+import { StorefrontController } from './storefront/controller.js';
+import { StorefrontQueryService } from './storefront/service.js';
 
 export interface Dependencies {
+  storefront?: StorefrontQueryService;
   wallet?: WalletQueryService;
   catalog?: CatalogQueryService;
   auth?: AuthRuntime;
@@ -45,6 +48,7 @@ export function createDependencies(env: ApiEnv): Dependencies {
   const logger = createLogger('api', env.LOG_LEVEL);
   redis.on('error', () => logger.warn('Redis connection unavailable'));
   return {
+    storefront: new StorefrontQueryService(database),
     wallet: new WalletQueryService(database),
     catalog: new CatalogQueryService(database),
     auth: {
@@ -111,11 +115,16 @@ export async function createApp(
   @Module({
     controllers: [
       HealthController,
+      StorefrontController,
       AuthController,
       CatalogController,
       WalletController,
     ],
     providers: [
+      {
+        provide: 'STOREFRONT_SERVICE',
+        useValue: dependencies.storefront ?? null,
+      },
       { provide: 'WALLET_QUERY', useValue: dependencies.wallet ?? null },
       { provide: 'CATALOG_SERVICE', useValue: dependencies.catalog ?? null },
       { provide: 'DEPENDENCIES', useValue: dependencies },
@@ -141,6 +150,7 @@ export async function createApp(
       if (
         request.url.startsWith('/auth/') ||
         request.url.startsWith('/catalog/') ||
+        request.url.startsWith('/storefront/') ||
         request.url.startsWith('/wallet/')
       ) {
         reply.header('Cache-Control', 'no-store');

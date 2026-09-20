@@ -31,7 +31,8 @@
     "test:integration": "pnpm build:packages && vitest run --config vitest.integration.config.ts",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e",
     "db:seed:catalog": "pnpm --filter @box/database seed:catalog",
-    "wallet:reconcile": "node scripts/reconcile-wallet.mjs"
+    "wallet:reconcile": "node scripts/reconcile-wallet.mjs",
+    "test:h5": "playwright test -c playwright.h5.config.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
