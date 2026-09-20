@@ -199,3 +199,7 @@ docker compose --profile apps down
 - 配置严格类型检查、ESLint、Prettier、Vitest、Playwright 和 CI。
 - 接入 NestJS/Fastify、Prisma/PostgreSQL、Redis、BullMQ、环境校验及结构化日志。
 - 添加健康端点、开发脚本、多阶段 Dockerfile 和 Docker Compose。
+
+## 独立 H5 联调
+
+见 [真实联调说明](docs/storefront-integration.md)。新增首页只读配置，复用 Catalog；pnpm test:h5 明确连接独立前端 checkout，不能用 Mock 或旧 Web 测试代替。
